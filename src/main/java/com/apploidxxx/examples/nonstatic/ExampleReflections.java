@@ -1,5 +1,7 @@
-package com.apploidxxx.examples;
+package com.apploidxxx.examples.nonstatic;
 
+import com.apploidxxx.examples.Cat;
+import com.apploidxxx.examples.SuperCat;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
@@ -30,7 +32,8 @@ public class ExampleReflections {
         try {
             return Optional.of((Cat) clazz.getDeclaredConstructor(Home.class).newInstance(HOME));
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
+            // IN THIS EXAMPLE you will catch here NoSuchMethodException from StaticHome inner static classes
+            // because they don't have constructor with home class
             return Optional.empty();
         }
     }

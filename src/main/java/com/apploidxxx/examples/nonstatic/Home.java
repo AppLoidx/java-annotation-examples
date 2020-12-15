@@ -1,46 +1,26 @@
-package com.apploidxxx.examples;
+package com.apploidxxx.examples.nonstatic;
+
+import com.apploidxxx.examples.Cat;
+import com.apploidxxx.examples.SuperCat;
 
 import java.io.File;
 import java.lang.annotation.*;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@interface SuperCat {
 
-}
 
-abstract class Cat {
-    abstract void meow();
-}
+
 
 /**
  * @author Arthur Kupriyanov on 27.11.2020
  */
-@SuperCat
 public class Home {
-
-    public class Tom extends Cat {
-        @Override
-        void meow() {
-            System.out.println("Tom-style meow!");
-        }
-    }
-
-    @SuperCat
-    public class Alex extends Cat {
-        @Override
-        void meow() {
-            System.out.println("Alex-style meow!");
-        }
-    }
 
     public static void main(String[] args) throws Exception {
 
-        String packageName = "com.apploidxxx.examples";
+        String packageName = "com.apploidxxx.examples.nonstatic";
         ClassLoader classLoader = Home.class.getClassLoader();
 
         String packagePath = packageName.replace('.', '/');
@@ -68,5 +48,20 @@ public class Home {
         }
 
         superCats.forEach(Cat::meow);
+    }
+
+    public class Tom extends Cat {
+        @Override
+        public void meow() {
+            System.out.println("Tom-style meow!");
+        }
+    }
+
+    @SuperCat
+    public class Alex extends Cat {
+        @Override
+        public void meow() {
+            System.out.println("Alex-style meow!");
+        }
     }
 }
